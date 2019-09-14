@@ -59,10 +59,10 @@ fi
 # a) El objetivo del script es obtener (según el parametro ingresado) la cantidad de lineas
 #    la cantidad de caracteres o la mayor longitud de linea de un archivo, también ingresado
 #    por parametro.
-
+#
 # b) El primer parametro del script sera el nombre del archivo. Por otro lado, el segundo parametro
 #    indicara el modo en el que se analizará el mismo
-
+#
 # e) La variable "$#" indica la cantidad de parametros ingresados. Por ejemplo, si ingreso
 #    ./ej.sh param1 param2, $# retornará dos.
 #    Otras variables similares a "$#" son:
