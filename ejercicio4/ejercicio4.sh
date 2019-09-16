@@ -71,7 +71,7 @@ ABSPATH=$(pwd)
 cd "$ABSPATH_OG"
 
 #Busca archivos que se puedan leer, en el directorio actual y con una detemrinada extension
-varArchivos=$(find "$ABSPATH" -maxdepth 1 -type f -perm -a+r -name "*$ExtensionArch") #Me quedo con los archivos de ExtensionArch
+varArchivos=$(find "$ABSPATH" -type f -perm -a+r -name "*$ExtensionArch") #Me quedo con los archivos de ExtensionArch
 
 #Si mi find devolvio "", entoncs mi cantArchivos es cero
 if [[ "$varArchivos" == "" ]]; then
