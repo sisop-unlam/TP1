@@ -77,7 +77,7 @@ count() {
    PATH_DEST=$(cat dest.tmp | head -n 1)
 
    #Cuento la cantidad
-   cantidad=$(find "$PATH_DEST/" -maxdepth 1 -type f -name "Backup*.tgz" | wc -l)
+   cantidad=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup*.tgz" | wc -l)
 
    #Hago el print
    echo "Archivos de backup en el directorio: " $cantidad
@@ -101,7 +101,7 @@ clear() {
    #Obtengo el path de la carpeta de backups
    PATH_DEST=$(cat dest.tmp | head -n 1)
 
-   cant=$(find "$PATH_DEST/" -maxdepth 1 -type f -name "Backup*.tgz" | wc -l)
+   cant=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup*.tgz" | wc -l)
 
    if [ $# -eq 1 ]; then
       cant_mantiene=0
@@ -113,14 +113,14 @@ clear() {
    archivoEliminado=0
 
    if [ $cant_mantiene = 0 ]; then
-      archivosTotales=$(find "$PATH_DEST/" -maxdepth 1 -type f -name "Backup_*.tgz" | wc -l)
+      archivosTotales=$(find "$PATH_DEST/" -maxdepth 1 -perm -a+r -type f -name "Backup_*.tgz" | wc -l)
       rm -rf "$PATH_DEST/"{*,.*} 2>/dev/null #borra toda la carpeta
       archivoEliminado=$archivosTotales
    elif [ $cant_mantiene -ne 0 ]; then
       cantArchivosRemoves=$(($archivosTotales - $cant_mantiene))
 
       #Voy a sacar los N primeros
-      archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
+      archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
 
       for f in $archivosARemover; do
          #Elimino

@@ -360,7 +360,7 @@ eliminar() {
       PATH_FILE_DELETE=$(dirname "${nombreOriginal}")
       cd "$PATH_FILE_DELETE"
       ABSPATH=$(pwd)
-      echo "$ABSPATH"
+
       FILE_BASENAME=$(basename "${nombreOriginal}")
       nombreOriginal="$ABSPATH"/"$FILE_BASENAME"
       cd $PATH_VIEJO
