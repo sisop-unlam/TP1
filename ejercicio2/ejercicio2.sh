@@ -17,7 +17,7 @@
 #***********************************************************************************
 
 getHelp() {
-	echo 'Descripcion: Este script hace dado un directorio, busca los archivos que tengan uno o ma espacios 
+	echo 'Descripcion: Este script hace dado un directorio, busca los archivos que tengan uno o mas espacios 
 	en sus nombres y los remplaza por el _ y devuelve la cantidad de archivos que se modificaron su nombre '
 	echo 'Nombre: ./ejercicio2.sh <DirectorioParametro>'
 	echo 'Parametro: <DirectorioParametro> ---Es el directorio donde voy a buscar los archivos con espacios'
@@ -52,7 +52,7 @@ buscarDadoDirectorioArchivosTxt() {
 		directorioParametro="$1"
 	fi
 
-	varArcEsp=$(find "$directorioParametro" -maxdepth 1 -type f -name "* *")
+	varArcEsp=$(find "$directorioParametro" -maxdepth 1 -type f -perm -a+r -name "* *")
 
 	IFS="
 	"
