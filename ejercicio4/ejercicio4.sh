@@ -37,29 +37,22 @@ validarParametros() {
     primerCaracterExtension="${VARIABLE_DIR:0:1}" #Con esto me quedo con el primer caracter de ExtensionArch
 
     if [[ $primerCaracterExtension == "," || $primerCaracterExtension == "-" ]]; then
-        ExtensionArch=${VARIABLE_DIR/$primerCaracterExtension/.} #VER SI ES $2 O "$2" ,reemplace y me hice lio jaja ${ExtensionArch/$primerCaracterExtension/.}
+        ExtensionArch=${VARIABLE_DIR/$primerCaracterExtension/.}
         #si se confundio y puso ",txt" o "-txt" reemplazamos "," o "-" por "." en la extension original
 
     elif [ $primerCaracterExtension=="." ]; then
         ExtensionArch="$2"
-        #Se puede dar el caso en el que escriba ".xtt" si ocurre eso ya no tengo forma de validarlo jaja
-        #Que se cague por puto jaja
-        #Tampoco puedo contar los caracteres como para validarlo, ni fijarme que seas letras
-        #Creo que lo unico que me queda es ver que me tira el Find y rezar
-
     fi
 
 }
 
 if [ $# -eq 2 ]; then
-    #directorioParametro=$1
-    #ExtensionArch=$2
     validarParametros "$@"
-elif [ "$1" = '-h' -o "$1" = '-?' -o "$1" = '-help' ]; then
+elif [[ "$1" == '-h' || "$1" == '-?' || "$1" == '-help' ]]; then
     getHelp
     exit 1
 else
-    echo 'Ingreso mal los parametros, vuelva ingresarlo'
+    echo 'Ingresó mal los parametros, vuelva a ingresar'
     echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
     exit
 fi

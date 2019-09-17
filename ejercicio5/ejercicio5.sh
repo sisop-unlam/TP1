@@ -80,7 +80,7 @@ validaParam() {
       #En el caso de tener un unico parametro
       if [ $# -eq 1 ]; then
             #ayuda y me voy
-            if [ "$1" = '-h' -o "$1" = '-?' -o "$1" = '-help' ]; then
+            if [[ $1 == "-h" || $1 == "-?" || $1 == "-help" ]]; then
                   mostrarAyuda
                   exit 1
             fi
@@ -124,17 +124,22 @@ validaPapelera() {
 
 #Muestra la papelera
 mostrarPapelera() {
-      echo ''
-      echo 'Archivos que contiene la papelera de reciclaje'
-      echo '=============================================='
-      echo 'Fecha                    Nombre del archivo'
-      echo ''
       #Imprimo path y fecha de eliminación
       arch=$(awk -F"\t" '{print $3,"\t",$2}' "$infoPapelera")
-      for i in "$arch"; do
-            echo "$i"
-      done
-      echo ''
+      if [[ $arch == "" ]]; then
+            echo "No hay archivos en la papelera de reciclaje."
+      else
+            echo ''
+            echo 'Archivos que contiene la papelera de reciclaje'
+            echo '=============================================='
+            echo 'Fecha                    Nombre del archivo'
+            echo ''
+
+            for i in "$arch"; do
+                  echo "$i"
+            done
+            echo ''
+      fi
 }
 
 #####################################################
