@@ -112,26 +112,21 @@ clear() {
    #inicializo el contador
    archivoEliminado=0
 
-   if [ $cant_mantiene = 0 ]; then
-      archivosTotales=$(find "$PATH_DEST/" -maxdepth 1 -perm -a+r -type f -name "Backup_*.tgz" | wc -l)
-      rm -rf "$PATH_DEST/"{*,.*} 2>/dev/null #borra toda la carpeta
-      archivoEliminado=$archivosTotales
-   elif [ $cant_mantiene -ne 0 ]; then
-      cantArchivosRemoves=$(($archivosTotales - $cant_mantiene))
+   cantArchivosRemoves=$(($archivosTotales - $cant_mantiene))
 
-      #Voy a sacar los N primeros
-      archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
+   #Voy a sacar los N primeros
+   archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
 
-      for f in $archivosARemover; do
-         #Elimino
-         $(rm "$f")
+   for f in $archivosARemover; do
+      #Elimino
+      $(rm "$f")
 
-         # Si elimino correctamente, incremento
-         if [ $? -eq 0 ]; then
-            archivoEliminado=$((archivoEliminado + 1))
-         fi
-      done
-   fi
+      # Si elimino correctamente, incremento
+      if [ $? -eq 0 ]; then
+         archivoEliminado=$((archivoEliminado + 1))
+      fi
+   done
+
    #Print final
    echo $archivoEliminado" archivo(s) eliminado(s) correctamente"
 }

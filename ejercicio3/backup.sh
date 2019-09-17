@@ -31,12 +31,24 @@ get_help() {
    exit
 }
 
-if [ $1 = '-h' -o $1 = '-?' -o $1 = '-help' ]; then
+if [[ $# -eq 0 ]]; then
+   echo "Ingrése un parámetro"
+   echo "Para más información, ingrese $0 -help"
+   exit
+fi
+
+if [[ $1 == "-h" || $1 == "-?" || $1 == "-help" ]]; then
    get_help
    exit 1
 fi
 
-if [ $1 = '-start' ]; then
+if [[ $1 != "-start" && $1 != "-stop" && $1 != "-play" && $1 != "-count" && $1 != "-clear" ]]; then
+   echo "Ingrese un parámetro válido"
+   echo "Para más información, ingrese $0 -help"
+   exit
+fi
+
+if [[ $1 == "-start" ]]; then
 
    proceso=$(ps aux | grep "[b]ackup.sh" | awk '{print $2;exit}')
 
@@ -65,7 +77,7 @@ if [ $1 = '-start' ]; then
 
 fi
 
-if [ $1 = '-stop' ]; then
+if [[ $1 == "-stop" ]]; then
    if [ $# -gt 1 ]; then
       echo "Parametros inválidos"
       exit
@@ -82,7 +94,7 @@ if [ $1 = '-stop' ]; then
    exit
 fi
 
-if [ $1 = '-count' ]; then
+if [[ $1 == '-count' ]]; then
    if [ $# -gt 1 ]; then
       echo "Parametros inválidos"
       exit
@@ -92,12 +104,12 @@ if [ $1 = '-count' ]; then
    exit 1
 fi
 
-if [ $1 = '-clear' ]; then
+if [[ $1 == '-clear' ]]; then
    clear "$@"
    exit 1
 fi
 
-if [ $1 = '-play' ]; then
+if [[ $1 == '-play' ]]; then
    if [ $# -gt 1 ]; then
       echo "Parametros inválidos"
       exit
