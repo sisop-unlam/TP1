@@ -18,11 +18,12 @@
 
 get_help() {
 
-    echo 'Nombre: ./ejercicio6.sh <Path>'
-    echo 'Parametro: <Path> --- es un parametro con el directorio a analizar'
-    echo 'Ejemplo: ./ejercicio6.sh /home/user/Desktop'
+    echo "Nombre: "$0" <Path>"
+    echo 'Descripción: Este script muestra los 10 subdirectorios más grandes de un directorio, los cuales no contienen otros directorios adentro'
     echo '-------------------------------------------------------------------'
-    echo 'Descripcion: Este script muestra los 10 subdirectorios más grandes de un directorio, los cuales no contienen otros directorios adentro'
+    echo 'Parametro: <Path> --- es un parametro con el directorio a analizar'
+    echo "Ejemplo: "$0" /home/user/Desktop"
+
     exit
 }
 

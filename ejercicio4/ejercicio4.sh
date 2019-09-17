@@ -17,12 +17,15 @@
 #***********************************************************************************
 
 getHelp() {
-    echo 'Descripcion: Este script cuenta la cantidad de lineas de codigo y de comentarios
-    que posean una ruta pasada por parametro y controlando solos los archivoscon cierta extension '
-    echo 'Nombre: ./ejercicio4.sh <DirectorioParametro,Extension>'
-    echo 'Parametro: <DirectorioParametro> ---Es el directorio donde voy a buscar los archivos '
-    echo 'Extension: <Extension>--- Es la extension de los archivos a analizar'
-    echo 'Ejemplo: ./ejercicio4.sh Escritorio .txt'
+    echo "Nombre: "$0" <DirectorioParametro> <Extension>"
+    echo 'Descripción: Este script cuenta la cantidad de lineas de codigo y de comentarios
+            que posean una ruta pasada por parametro y controlando solos los archivos con
+            cierta extension '
+    echo '-------------------------------------------------------------------'
+    echo 'Parametros:'
+    echo '  <DirectorioParametro> --- Es el directorio donde voy a buscar los archivos '
+    echo '  <Extension> --- Es la extensión de los archivos a analizar'
+    echo "Ejemplo: "$0" Escritorio .txt"
     exit
 
 }

@@ -33,19 +33,15 @@ parametrosIncorrectos() {
 
 #Funcion de ayuda
 mostrarAyuda() {
-
-      echo 'Nombre: ./ejercicio5.sh <Path>'
-      echo 'Path puede ser un archivo o un directorio'
-      echo 'Tambien se pueden utilizar parametros'
+      echo "Nombre: "$0" <Path> [-l] [-r] [-e]"
+      echo 'Descripción: Este script emula el comportamiento del comando rm, pero utilizando el concepto de la papelera de reciclaje.'
+      echo '-------------------------------------------------------------------'
       echo 'Parametros:'
       echo '  -l              Lista los archivos que contiene la papelera de reciclaje'
       echo '  -r [archivo]    Recupera un archivo ubicado en la papelera de reciclaje'
       echo '  -e              Vacia la papelera de reciclaje'
-      echo 'Ejemplo: ./ejercicio5.sh ~/carpeta1/'
-      echo '-------------------------------------------------------------------'
-      echo 'Descripcion: Este script emula el comportamiento del comando rm, pero utilizando el concepto de la papelera de reciclaje.'
+      echo "Ejemplo: "$0" ~/carpeta1/"
       exit
-
 }
 
 #Validacion de parametros

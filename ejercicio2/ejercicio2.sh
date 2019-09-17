@@ -17,13 +17,16 @@
 #***********************************************************************************
 
 getHelp() {
-	echo 'Descripcion: Este script, dado un directorio, busca los archivos que tengan uno o mas espacios 
+	echo "Nombre: $0 <DirectorioParametro> [-r]"
+	echo 'Descripción: Este script, dado un directorio, busca los archivos que tengan uno o mas espacios 
 	en sus nombres y los remplaza por un guion bajo ( _ ) y devuelve la cantidad de archivos a los que se les modificó su nombre '
-	echo 'Nombre: ./ejercicio2.sh <DirectorioParametro>'
-	echo 'Parametro: '
-	echo '			<DirectorioParametro> ---Es el directorio donde voy a buscar los archivos con espacios'
-	echo '			-r --- Permite la busqueda recursiva en subdirectorios'
-	echo 'Ejemplo: ./ejercicio2.sh Escritorio'
+	echo '--------------------------------------------------------------------------------'
+	echo 'Parametros: '
+	echo '	<DirectorioParametro> --- Es el directorio donde voy a buscar los archivos con espacios'
+	echo '	[-r] --- Parametro opcional que permite la busqueda recursiva en subdirectorios'
+	echo "Ejemplo A: "$0" Escritorio"
+	echo "Ejemplo B: "$0" Escritorio -r"
+
 	exit
 
 }
