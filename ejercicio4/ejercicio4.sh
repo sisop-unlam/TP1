@@ -69,9 +69,9 @@ cd "$ABSPATH_OG"
 #Si busco archivos sin extension
 if [[ $ExtensionArch != "" ]]; then
     #Busca archivos que se puedan leer, en el directorio actual y con una detemrinada extension
-    varArchivos=$(find "$ABSPATH" -type f ! -perm -a+r -prune -o -type f -name "*$ExtensionArch" -print) #Me quedo con los archivos de ExtensionArch
+    varArchivos=$(find "$ABSPATH" ! -readable -prune -o -type f -name "*$ExtensionArch" -print) #Me quedo con los archivos de ExtensionArch
 else
-    varArchivos=$(find "$ABSPATH" -type f ! -perm -a+r -prune -o -type f ! -name "*.*" -print)
+    varArchivos=$(find "$ABSPATH" ! -readable -prune -o -type f ! -name "*.*" -print)
 fi
 #Si mi find devolvio "", entoncs mi cantArchivos es cero
 if [[ "$varArchivos" == "" ]]; then
@@ -132,10 +132,12 @@ done
 lineasCodigo=$(($lineasTotales + $lineasSlashCodigo - $lineasComment - $lineasSlash + $lineasSlashCodigoInternasMultilinea))
 lineasComentarios=$(($lineasComment + $lineasSlash - $lineasSlashCodigoInternasMultilinea))
 echo "CANTIDAD DE ARCHIVOS ANALIZADOS: "$cantArchivosAnalizados
-#echo "LINEAS TOTALES: "$lineasTotales
-#echo "LINEAS COMENTARIOS: "$lineasComentarios
-#echo "    MULTILINEA: "$lineasComment
-#echo "    LÍNEA ÚNICA: "$lineasSlash
-#echo "LINEAS CÓDIGO: "$lineasCodigo
-echo "LÍNEAS CODIGO/LÍNEAS TOTALES: "$(awk -vn=$lineasCodigo -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')"%"
-echo "LÍNEAS COMENTARIOS/LÍNEAS TOTALES: "$(awk -vn=$lineasComentarios -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')"%"
+echo "LINEAS TOTALES: "$lineasTotales
+echo "LINEAS COMENTARIOS: "$lineasComentarios
+echo "    MULTILINEA: "$lineasComment
+echo "    LÍNEA ÚNICA: "$lineasSlash
+echo "LINEAS CÓDIGO: "$lineasCodigo
+porcentajeCodigo=$(awk -vn=$lineasCodigo -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')
+porcentajeComentarios=$(echo '100-'$porcentajeCodigo | bc -l)
+echo "LÍNEAS CODIGO/LÍNEAS TOTALES: "$porcentajeCodigo"%"
+echo "LÍNEAS COMENTARIOS/LÍNEAS TOTALES: "$porcentajeComentarios"%"

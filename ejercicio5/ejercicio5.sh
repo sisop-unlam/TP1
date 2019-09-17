@@ -64,7 +64,7 @@ validaParam() {
                         {
                               print 1;exit;
                         }
-                  }' "$infoPapelera")
+                  }' "$infoPapelera" 2>/dev/null)
 
             #Si no encontre ese archivo en la papelera, imprime por stdout
             if [[ "$1" == '-r' && $evalArch != 1 ]]; then
@@ -121,7 +121,7 @@ validaPapelera() {
 #Muestra la papelera
 mostrarPapelera() {
       #Imprimo path y fecha de eliminación
-      arch=$(awk -F"\t" '{print $3,"\t",$2}' "$infoPapelera")
+      arch=$(awk -F"\t" '{print $3,"\t",$2}' "$infoPapelera" 2>/dev/null)
       if [[ $arch == "" ]]; then
             echo "No hay archivos en la papelera de reciclaje."
       else
@@ -142,7 +142,7 @@ mostrarPapelera() {
 #chequea si esta duplicado
 #en caso de estar duplicado, pregunta si quiere reemplazar, mover con otro nombre (agregandole el (N)) o cancelar
 comprobarDuplicado() {
-      local directorio=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $2}')
+      local directorio=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $2}' 2>/dev/null)
 
       if [ -e "$directorio" ]; then
             esArchDuplicado=1
@@ -169,7 +169,7 @@ comprobarDuplicado() {
 ######################################################################
 
 obtenerNombreNuevo() {
-      local directorio=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $2}')
+      local directorio=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $2}' 2>/dev/null)
 
       theFileName="$directorio"
 
@@ -201,8 +201,8 @@ obtenerNombreNuevo() {
 
 mover() {
 
-      local nombreEncriptado=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $1}')
-      local dirOriginal=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $2}')
+      local nombreEncriptado=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $1}' 2>/dev/null)
+      local dirOriginal=$(echo "$1" | awk 'BEGIN {FS="\t"}{print $2}' 2>/dev/null)
 
       if [ $# -eq 1 ]; then
             dirOriginal="$dirOriginal"
@@ -229,7 +229,7 @@ comprobarDuplicadoEnLista() {
                         {
                               COUNT++
                         }
-                  } END { print COUNT } ' "$infoPapelera")
+                  } END { print COUNT } ' "$infoPapelera" 2>/dev/null)
 
       #Si no encontre ese archivo en la papelera, imprime por stdout
       if [[ "$1" == '-r' && $evalArch2 == 0 ]]; then
@@ -248,7 +248,7 @@ comprobarDuplicadoEnLista() {
                         {
                               print NUM")  " $2,"\t",$3;NUM++
                         } 
-                   }' "$infoPapelera")
+                   }' "$infoPapelera" 2>/dev/null)
 
             #Imprimo path y fecha de eliminación
             numMaximo=$(awk -v arch="$FILE" -F"\t" 'BEGIN{NUM=1}{
@@ -256,7 +256,7 @@ comprobarDuplicadoEnLista() {
                         {
                         NUM++
                         } 
-                   } END {print NUM}' "$infoPapelera")
+                   } END {print NUM}' "$infoPapelera" 2>/dev/null)
 
             #Me pase en uno, entonces le resto
             numMaximo=$(($numMaximo - 1))
@@ -286,7 +286,7 @@ comprobarDuplicadoEnLista() {
                               }
                               NUM++
                         } 
-                   }' "$infoPapelera")
+                   }' "$infoPapelera" 2>/dev/null)
 
             PATH_RESTORE="$archElegido"
       else
@@ -295,7 +295,7 @@ comprobarDuplicadoEnLista() {
                         {
                               print $0;exit;
                         }
-                  } ' "$infoPapelera")
+                  } ' "$infoPapelera" 2>/dev/null)
             PATH_RESTORE="$archElegido"
       fi
 }
@@ -370,7 +370,7 @@ eliminar() {
                         {
                               CAD=$1
                         }
-                  } END{print CAD}' "$infoPapelera")
+                  } END{print CAD}' "$infoPapelera" 2>/dev/null)
 
       if [[ $evalArch != "" ]]; then
             numero="${evalArch: -1}"

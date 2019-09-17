@@ -22,7 +22,7 @@ get_help() {
     echo 'Descripción: Este script muestra los 10 subdirectorios más grandes de un directorio, los cuales no contienen otros directorios adentro'
     echo '-------------------------------------------------------------------'
     echo 'Parámetro: <Path> --- es un parámetro con el directorio a analizar'
-    echo "Ejemplo: "$0" /home/user/Desktop"
+    echo "Ejemplo: "$0" ~/Desktop"
 
     exit
 }
@@ -55,7 +55,7 @@ ABSPATH="$(pwd)"
 
 #Busco los directorios en los que tengo permiso de lectura
 #Es recursivo
-directorios=$(find "$ABSPATH" -type d ! -perm -a+r -prune -o -type d -print)
+directorios=$(find "$ABSPATH" ! -readable -prune -o -type d -print)
 
 #Arreglo el IFS
 IFS="

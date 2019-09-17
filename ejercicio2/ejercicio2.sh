@@ -65,9 +65,9 @@ buscarDadoDirectorioArchivosTxt() {
 
 	#Parámetro -r
 	if [[ $# -eq 2 && $2 == '-r' ]]; then
-		varArcEsp=$(find "$directorioParametro" -type f ! -perm -a+r -prune -o -type f -name "* *")
+		varArcEsp=$(find "$directorioParametro" ! -readable -prune -o -type f -name "* *" -print)
 	else
-		varArcEsp=$(find "$directorioParametro" -maxdepth 1 -type f ! -perm -a+r -prune -o -type f -name "* *")
+		varArcEsp=$(find "$directorioParametro" -maxdepth 1 ! -readable -prune -o -type f -name "* *" -print)
 	fi
 
 	IFS="

@@ -78,7 +78,7 @@ count() {
    PATH_DEST=$(cat "$DIR_EJER"/dest.tmp | head -n 1)
 
    #Cuento la cantidad
-   cantidad=$(find "$PATH_DEST/" -maxdepth 1 -type f ! -perm -a+r -prune -o -type f -name "Backup*.tgz" | wc -l)
+   cantidad=$(find "$PATH_DEST/" -maxdepth 1 ! -readable -prune -o -type f -name "Backup*.tgz" -print | wc -l)
 
    #Hago el print
    echo "Archivos de backup en el directorio: " $cantidad
@@ -102,7 +102,7 @@ clear() {
    #Obtengo el path de la carpeta de backups
    PATH_DEST=$(cat "$DIR_EJER"/dest.tmp | head -n 1)
 
-   cant=$(find "$PATH_DEST/" -maxdepth 1 -type f ! -perm -a+r -prune -o -type f -name "Backup*.tgz" | wc -l)
+   cant=$(find "$PATH_DEST/" -maxdepth 1 ! -readable -prune -o -type f -name "Backup*.tgz" -print | wc -l)
 
    if [ $# -eq 1 ]; then
       cant_mantiene=0
@@ -112,19 +112,17 @@ clear() {
 
    #inicializo el contador
    archivoEliminado=0
-   archivosTotales=$(find "$PATH_DEST/" -maxdepth 1 -type f ! -perm -a+r -prune -o -type f -name "Backup_*.tgz" | wc -l)
+   archivosTotales=$(find "$PATH_DEST/" -maxdepth 1 ! -readable -prune -o -type f -name "Backup_*.tgz" -print | wc -l)
    cantArchivosRemoves=$(($archivosTotales - $cant_mantiene))
-   #Si me quedo en cero, entoncs borro todo
-   if [[ $cantArchivosRemoves == 0 ]]; then
-      cantArchivosRemoves=$archivosTotales
-   fi
 
-   if [[ $cantArchivosRemoves -lt 0 ]]; then
-      echo "No existen suficientes backups para remover."
+   if [[ $cantArchivosRemoves -lt 1 ]]; then
+      echo "0 archivos eliminados."
    else
       #Voy a sacar los N primeros
-      archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f ! -perm -a+r -prune -o -type f -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
+      archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 ! -readable -prune -o -type f -name "Backup_*.tgz" -print | sort | head -n $cantArchivosRemoves)
 
+      IFS="
+"
       for f in $archivosARemover; do
          #Elimino
          $(rm "$f")
