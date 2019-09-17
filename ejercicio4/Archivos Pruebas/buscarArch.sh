@@ -2,9 +2,9 @@
 
  buscarArchivosTxt(){
  	DirectorioPara=$1
-	res=$(find  $DirectorioPara -type f -name "* *" -and -name "*.txt")//ni idea
+	res=$(find  $DirectorioPara -type f -name "* *" -and -name "*.txt")
 	//123123
-	//asdasdasd
+	//prueba slash
 	/**/
 	
 	echo  " $res "

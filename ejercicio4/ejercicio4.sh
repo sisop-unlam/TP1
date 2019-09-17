@@ -63,9 +63,13 @@ cd "$directorioParametro"
 ABSPATH=$(pwd)
 cd "$ABSPATH_OG"
 
-#Busca archivos que se puedan leer, en el directorio actual y con una detemrinada extension
-varArchivos=$(find "$ABSPATH" -type f -perm -a+r -name "*$ExtensionArch") #Me quedo con los archivos de ExtensionArch
-
+#Si busco archivos sin extension
+if [[ $ExtensionArch != "" ]]; then
+    #Busca archivos que se puedan leer, en el directorio actual y con una detemrinada extension
+    varArchivos=$(find "$ABSPATH" ! -perm -a+r -prune -o -type f -name "*$ExtensionArch" -print) #Me quedo con los archivos de ExtensionArch
+else
+    varArchivos=$(find "$ABSPATH" ! -perm -a+r -prune -o -type f ! -name "*.*" -print)
+fi
 #Si mi find devolvio "", entoncs mi cantArchivos es cero
 if [[ "$varArchivos" == "" ]]; then
     cantArchivosAnalizados=0
