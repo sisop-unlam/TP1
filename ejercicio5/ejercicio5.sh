@@ -173,16 +173,11 @@ obtenerNombreNuevo() {
 
       theFileName="$directorio"
 
-      # Get the proposed name by chopping off the extension
       name="${theFileName%.*}"
 
-      # get extension.  Set to null when there isn't an extension
-      # Thanks to mklement0 in a comment above.
       extension=$([[ "$theFileName" == *.* ]] && echo ".${theFileName##*.}" || echo '')
 
-      # a hidden file without extenson?
       if [ "${theFileName}" = "${extension}" ]; then
-            # hidden file without extension.  Fixup.
             name=${theFileName}
             extension=""
       fi
