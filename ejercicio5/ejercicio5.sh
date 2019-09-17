@@ -25,7 +25,7 @@ PATH_RESTORE=""
 
 #Error generico
 parametrosIncorrectos() {
-      echo 'La cantidad de parametros ingresada no es correcta'
+      echo 'La cantidad de parámetros ingresada no es correcta'
       echo "Para obtener ayuda sobre el script utilice -h o -help o -?"
       exit
 }
@@ -36,7 +36,7 @@ mostrarAyuda() {
       echo "Nombre: "$0" <Path> [-l] [-r] [-e]"
       echo 'Descripción: Este script emula el comportamiento del comando rm, pero utilizando el concepto de la papelera de reciclaje.'
       echo '-------------------------------------------------------------------'
-      echo 'Parametros:'
+      echo 'Parámetros:'
       echo '  -l              Lista los archivos que contiene la papelera de reciclaje'
       echo '  -r [archivo]    Recupera un archivo ubicado en la papelera de reciclaje'
       echo '  -e              Vacia la papelera de reciclaje'
@@ -44,7 +44,7 @@ mostrarAyuda() {
       exit
 }
 
-#Validacion de parametros
+#Validacion de parámetros
 validaParam() {
       if [ $# -eq 0 ]; then
             parametrosIncorrectos
@@ -73,7 +73,7 @@ validaParam() {
             fi
       fi
 
-      #En el caso de tener un unico parametro
+      #En el caso de tener un unico parámetro
       if [ $# -eq 1 ]; then
             #ayuda y me voy
             if [[ $1 == "-h" || $1 == "-?" || $1 == "-help" ]]; then
@@ -87,7 +87,7 @@ validaParam() {
                   exit 1
             fi
 
-            #Compruebo si estoy poniendo bien el parametro
+            #Compruebo si estoy poniendo bien el parámetro
             if [ "$1" != '-l' -a "$1" != '-e' ]; then
 
                   #En caso de que se haya puesto -r y se haya omitido el path

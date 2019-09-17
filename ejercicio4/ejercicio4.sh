@@ -17,13 +17,13 @@
 #***********************************************************************************
 
 getHelp() {
-    echo "Nombre: "$0" <DirectorioParametro> <Extension>"
-    echo 'Descripción: Este script cuenta la cantidad de lineas de codigo y de comentarios
-            que posean una ruta pasada por parametro y controlando solos los archivos con
+    echo "Nombre: "$0" <DirectorioParámetro> <Extension>"
+    echo 'Descripción: Este script cuenta la cantidad de líneas de codigo y de comentarios
+            que posean una ruta pasada por parámetro y controlando solos los archivos con
             cierta extension '
     echo '-------------------------------------------------------------------'
-    echo 'Parametros:'
-    echo '  <DirectorioParametro> --- Es el directorio donde voy a buscar los archivos '
+    echo 'Parámetros:'
+    echo '  <DirectorioParámetro> --- Es el directorio donde voy a buscar los archivos '
     echo '  <Extension> --- Es la extensión de los archivos a analizar'
     echo "Ejemplo: "$0" Escritorio .txt"
     exit
@@ -55,7 +55,7 @@ elif [[ "$1" == '-h' || "$1" == '-?' || "$1" == '-help' ]]; then
     getHelp
     exit 1
 else
-    echo 'Ingresó mal los parametros, vuelva a ingresar'
+    echo 'Ingresó mal los parámetros, vuelva a ingresar'
     echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
     exit
 fi
@@ -135,7 +135,7 @@ echo "CANTIDAD DE ARCHIVOS ANALIZADOS: "$cantArchivosAnalizados
 #echo "LINEAS TOTALES: "$lineasTotales
 #echo "LINEAS COMENTARIOS: "$lineasComentarios
 #echo "    MULTILINEA: "$lineasComment
-#echo "    LINEA ÚNICA: "$lineasSlash
+#echo "    LÍNEA ÚNICA: "$lineasSlash
 #echo "LINEAS CÓDIGO: "$lineasCodigo
-echo "LINEAS CODIGO/LINEAS TOTALES: "$(awk -vn=$lineasCodigo -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')"%"
-echo "LINEAS COMENTARIOS/LINEAS TOTALES: "$(awk -vn=$lineasComentarios -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')"%"
+echo "LÍNEAS CODIGO/LÍNEAS TOTALES: "$(awk -vn=$lineasCodigo -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')"%"
+echo "LÍNEAS COMENTARIOS/LÍNEAS TOTALES: "$(awk -vn=$lineasComentarios -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')"%"

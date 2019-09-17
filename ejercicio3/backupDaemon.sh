@@ -47,7 +47,7 @@ start() {
    #esta parte es para ponerlo en segundo plano con un intervalo de tiempo
    trap start SIGUSR1
    while true; do
-      sleep $4 &#$4 es el parametro del intervalo en segundos
+      sleep $4 &#$4 es el parámetro del intervalo en segundos
       wait $!
       start "$@"
    done
@@ -86,9 +86,9 @@ count() {
 
 clear() {
 
-   #Valido la cant de parametros
+   #Valido la cant de parámetros
    if [[ $# -gt 2 ]]; then
-      echo "Cantidad de parametros inválida"
+      echo "Cantidad de parámetros inválida"
       exit
    fi
 

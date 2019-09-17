@@ -17,13 +17,13 @@
 #***********************************************************************************
 
 getHelp() {
-	echo "Nombre: $0 <DirectorioParametro> [-r]"
+	echo "Nombre: $0 <directorioParametro> [-r]"
 	echo 'Descripción: Este script, dado un directorio, busca los archivos que tengan uno o mas espacios 
 	en sus nombres y los remplaza por un guion bajo ( _ ) y devuelve la cantidad de archivos a los que se les modificó su nombre '
 	echo '--------------------------------------------------------------------------------'
-	echo 'Parametros: '
-	echo '	<DirectorioParametro> --- Es el directorio donde voy a buscar los archivos con espacios'
-	echo '	[-r] --- Parametro opcional que permite la busqueda recursiva en subdirectorios'
+	echo 'Parámetros: '
+	echo '	<directorioParametro> --- Es el directorio donde voy a buscar los archivos con espacios'
+	echo '	[-r] --- Parámetro opcional que permite la busqueda recursiva en subdirectorios'
 	echo "Ejemplo A: "$0" Escritorio"
 	echo "Ejemplo B: "$0" Escritorio -r"
 
@@ -33,13 +33,13 @@ getHelp() {
 
 validarCantidadParametros() {
 	if [[ $# -lt 1 || $# -gt 2 ]]; then
-		echo 'La cantidad de parametros no es correcta'
+		echo 'La cantidad de parámetros no es correcta'
 		echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
 		exit
 	fi
 
 	if [[ $# -eq 2 && "$2" != '-r' ]]; then
-		echo 'Parametro incorrecto'
+		echo 'Parámetro incorrecto'
 		echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
 		exit
 	fi
@@ -63,7 +63,7 @@ buscarDadoDirectorioArchivosTxt() {
 		directorioParametro="$1"
 	fi
 
-	#Parametro -r
+	#Parámetro -r
 	if [[ $# -eq 2 && $2 == '-r' ]]; then
 		varArcEsp=$(find "$directorioParametro" -type f -perm -a+r -name "* *")
 	else

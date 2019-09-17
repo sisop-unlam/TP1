@@ -24,10 +24,10 @@ get_help() {
 
    echo 'La funcionalidad del script es crear un backup de un directorio cada un intervalo de tiempo en segundos.'
    echo 'Comandos: -start -stop -count -clear -play -help'
-   echo '-start: Inicia la ejecucion, debe pasar por parametro el directorio a salvar, a guardar y el intervalo de tiempo entre backups en seguundos'
+   echo '-start: Inicia la ejecucion, debe pasar por parámetro el directorio a salvar, a guardar y el intervalo de tiempo entre backups en seguundos'
    echo '-stop: Finaliza el proceso'
    echo '-count: Indica la cantidad de backups que hay en el directorio ,se debe pasar la ruta completa'
-   echo '-clear: Limpia el directorio de backups, recibe por parametro la cantidad de backups que se mantienen en la carpeta'
+   echo '-clear: Limpia el directorio de backups, recibe por parámetro la cantidad de backups que se mantienen en la carpeta'
    echo '-play: Crea el backup en ese instante'
    exit
 }
@@ -58,7 +58,7 @@ if [[ $1 == "-start" ]]; then
 
       #Primero, hago todas las validaciones correspondientes
       if [ $# -ne 4 ]; then
-         echo "Sintaxis de ejecución parametro start:"
+         echo "Sintaxis de ejecución parámetro start:"
          echo "    ./backup.sh -start <directorio-origen> <directorio-backup> <intervalo-segundos>"
          exit
       elif ! [ -d "$2" ]; then
@@ -80,7 +80,7 @@ fi
 
 if [[ $1 == "-stop" ]]; then
    if [ $# -gt 1 ]; then
-      echo "Parametros inválidos"
+      echo "Parámetros inválidos"
       exit
    fi
 
@@ -97,7 +97,7 @@ fi
 
 if [[ $1 == '-count' ]]; then
    if [ $# -gt 1 ]; then
-      echo "Parametros inválidos"
+      echo "Parámetros inválidos"
       exit
    fi
 
@@ -112,7 +112,7 @@ fi
 
 if [[ $1 == '-play' ]]; then
    if [ $# -gt 1 ]; then
-      echo "Parametros inválidos"
+      echo "Parámetros inválidos"
       exit
    fi
    proceso=$(ps aux | grep "[b]ackup.sh" | awk '{print $2;exit}')

@@ -21,7 +21,7 @@ get_help() {
     echo "Nombre: "$0" <Path>"
     echo 'Descripción: Este script muestra los 10 subdirectorios más grandes de un directorio, los cuales no contienen otros directorios adentro'
     echo '-------------------------------------------------------------------'
-    echo 'Parametro: <Path> --- es un parametro con el directorio a analizar'
+    echo 'Parámetro: <Path> --- es un parámetro con el directorio a analizar'
     echo "Ejemplo: "$0" /home/user/Desktop"
 
     exit
@@ -29,7 +29,7 @@ get_help() {
 
 verificar_parametros() {
     if [ "$#" -ne 1 ]; then
-        echo 'La cantidad ingresada de parametros no es correcta'
+        echo 'La cantidad ingresada de parámetros no es correcta'
         echo 'Utilizar -h/-?/-help para ver la ayuda'
         exit -1
     fi
