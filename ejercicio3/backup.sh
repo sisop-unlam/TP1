@@ -34,7 +34,7 @@ get_help() {
 
 if [[ $# -eq 0 ]]; then
    echo "Ingrése un parámetro"
-   echo "Para más información, ingrese $0 -help"
+   echo "Para más información, ingrese "$0" -help"
    exit
 fi
 
@@ -45,7 +45,7 @@ fi
 
 if [[ $1 != "-start" && $1 != "-stop" && $1 != "-play" && $1 != "-count" && $1 != "-clear" ]]; then
    echo "Ingrese un parámetro válido"
-   echo "Para más información, ingrese $0 -help"
+   echo "Para más información, ingrese "$0" -help"
    exit
 fi
 

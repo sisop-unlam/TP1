@@ -18,9 +18,9 @@
 
 ErrorS() {
     echo "Error. La sintaxis del script es la siguiente:"
-    echo "Cantidad de líneas $0 nombre_archivo L"
-    echo "Cantidad de caracteres: $0 nombre_archivo C"
-    echo "Mayor longitud de línea: $0 nombre_archivo M"
+    echo "Cantidad de líneas "$0" nombre_archivo L"
+    echo "Cantidad de caracteres: "$0" nombre_archivo C"
+    echo "Mayor longitud de línea: "$0" nombre_archivo M"
 }
 ErrorP() {
     echo "Error. nombre_archivo no existe o no tiene permisos de lectura"

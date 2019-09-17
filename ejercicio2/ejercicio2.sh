@@ -17,7 +17,7 @@
 #***********************************************************************************
 
 getHelp() {
-	echo "Nombre: $0 <directorioParametro> [-r]"
+	echo "Nombre: "$0" <directorioParametro> [-r]"
 	echo 'Descripción: Este script, dado un directorio, busca los archivos que tengan uno o mas espacios 
 	en sus nombres y los remplaza por un guion bajo ( _ ) y devuelve la cantidad de archivos a los que se les modificó su nombre '
 	echo '--------------------------------------------------------------------------------'
