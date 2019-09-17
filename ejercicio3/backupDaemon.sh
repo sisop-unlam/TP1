@@ -16,6 +16,7 @@
 #    Vivas               Pablo                 38703964
 #
 #***********************************************************************************
+DIR_EJER="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
 start() {
    #Guardo la carpeta del script, para crear mi archivo de control
@@ -35,8 +36,8 @@ start() {
    cd "$CARPETA_SCRIPT"
 
    #Imprimo en orden
-   echo "$CARPETA_DESTINO" >dest.tmp
-   echo "$CARPETA_BACKUP" >>dest.tmp
+   echo "$CARPETA_DESTINO" >"$DIR_EJER"/dest.tmp
+   echo "$CARPETA_BACKUP" >>"$DIR_EJER"/dest.tmp
 
    #Oculto los posibles notice por ejemplo por barras
    tar cfz "$CARPETA_DESTINO"/"$NOMBRE_ARCHIVO" "$CARPETA_BACKUP" 2>/dev/null
@@ -67,14 +68,14 @@ stop() {
 
 count() {
    #Primero debo leer el nombre de la carpeta de backups
-   if ! [[ -f "dest.tmp" ]]; then
+   if ! [[ -f "$DIR_EJER"/"dest.tmp" ]]; then
       echo "Error, destino desconocido"
       echo "Finalizando..."
       stop 2>/dev/null
    fi
 
    #Obtengo el path de la carpeta de backups
-   PATH_DEST=$(cat dest.tmp | head -n 1)
+   PATH_DEST=$(cat "$DIR_EJER"/dest.tmp | head -n 1)
 
    #Cuento la cantidad
    cantidad=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup*.tgz" | wc -l)
@@ -92,14 +93,14 @@ clear() {
    fi
 
    #Primero debo leer el nombre de la carpeta de backups
-   if ! [[ -f "dest.tmp" ]]; then
+   if ! [[ -f "$DIR_EJER"/"dest.tmp" ]]; then
       echo "Error, destino desconocido"
       echo "Finalizando..."
       stop 2>/dev/null
    fi
 
    #Obtengo el path de la carpeta de backups
-   PATH_DEST=$(cat dest.tmp | head -n 1)
+   PATH_DEST=$(cat "$DIR_EJER"/dest.tmp | head -n 1)
 
    cant=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup*.tgz" | wc -l)
 
@@ -111,24 +112,32 @@ clear() {
 
    #inicializo el contador
    archivoEliminado=0
-
+   archivosTotales=$(find "$PATH_DEST/" -maxdepth 1 -perm -a+r -type f -name "Backup_*.tgz" | wc -l)
    cantArchivosRemoves=$(($archivosTotales - $cant_mantiene))
+   #Si me quedo en cero, entoncs borro todo
+   if [[ $cantArchivosRemoves == 0 ]]; then
+      cantArchivosRemoves=$archivosTotales
+   fi
 
-   #Voy a sacar los N primeros
-   archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
+   if [[ $cantArchivosRemoves -lt 0 ]]; then
+      echo "No existen suficientes backups para remover."
+   else
+      #Voy a sacar los N primeros
+      archivosARemover=$(find "$PATH_DEST/" -maxdepth 1 -type f -perm -a+r -name "Backup_*.tgz" | sort | head -n $cantArchivosRemoves)
 
-   for f in $archivosARemover; do
-      #Elimino
-      $(rm "$f")
+      for f in $archivosARemover; do
+         #Elimino
+         $(rm "$f")
 
-      # Si elimino correctamente, incremento
-      if [ $? -eq 0 ]; then
-         archivoEliminado=$((archivoEliminado + 1))
-      fi
-   done
+         # Si elimino correctamente, incremento
+         if [ $? -eq 0 ]; then
+            archivoEliminado=$((archivoEliminado + 1))
+         fi
+      done
 
-   #Print final
-   echo $archivoEliminado" archivo(s) eliminado(s) correctamente"
+      #Print final
+      echo $archivoEliminado" archivo(s) eliminado(s) correctamente"
+   fi
 }
 
 play() {
@@ -136,8 +145,8 @@ play() {
    NOMBRE_ARCHIVO="Backup_$FECHA_Y_HORA.tgz"
 
    #Obtengo el path de la carpeta de backups
-   CARPETA_DESTINO=$(cat dest.tmp | awk 'NR == 1')
-   CARPETA_BACKUP=$(cat dest.tmp | awk 'NR == 2')
+   CARPETA_DESTINO=$(cat "$DIR_EJER"/dest.tmp | awk 'NR == 1')
+   CARPETA_BACKUP=$(cat "$DIR_EJER"/dest.tmp | awk 'NR == 2')
 
    #Oculto los posibles notice por ejemplo por barras
    tar cfz "$CARPETA_DESTINO"/"$NOMBRE_ARCHIVO" "$CARPETA_BACKUP" 2>/dev/null

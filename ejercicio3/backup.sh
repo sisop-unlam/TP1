@@ -16,8 +16,9 @@
 #    Vivas               Pablo                 38703964
 #
 #***********************************************************************************
+DIR_EJER="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 
-source backupDaemon.sh #esto es para tomar este archivo como fuente al otro backupDemon.sh
+source "$DIR_EJER"/backupDaemon.sh #esto es para tomar este archivo como fuente al otro backupDemon.sh
 
 get_help() {
 
