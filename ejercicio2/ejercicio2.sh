@@ -2,7 +2,7 @@
 #***********************************************************************************
 # Nombre Del Script:        ejercicio2.sh
 # Trabajo Practico Nro.:    1
-# Ejercicio Nro.:           5
+# Ejercicio Nro.:           2
 # Entrega Nro.:             1
 # Integrantes:
 #
@@ -17,23 +17,31 @@
 #***********************************************************************************
 
 getHelp() {
-	echo 'Descripcion: Este script hace dado un directorio, busca los archivos que tengan uno o mas espacios 
-	en sus nombres y los remplaza por el _ y devuelve la cantidad de archivos que se modificaron su nombre '
+	echo 'Descripcion: Este script, dado un directorio, busca los archivos que tengan uno o mas espacios 
+	en sus nombres y los remplaza por un guion bajo ( _ ) y devuelve la cantidad de archivos a los que se les modificó su nombre '
 	echo 'Nombre: ./ejercicio2.sh <DirectorioParametro>'
-	echo 'Parametro: <DirectorioParametro> ---Es el directorio donde voy a buscar los archivos con espacios'
+	echo 'Parametro: '
+	echo '			<DirectorioParametro> ---Es el directorio donde voy a buscar los archivos con espacios'
+	echo '			-r --- Permite la busqueda recursiva en subdirectorios'
 	echo 'Ejemplo: ./ejercicio2.sh Escritorio'
 	exit
 
 }
 
 validarCantidadParametros() {
-	if [ $# -ne 1 ]; then
+	if [[ $# -lt 1 || $# -gt 2 ]]; then
 		echo 'La cantidad de parametros no es correcta'
 		echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
 		exit
 	fi
 
-	if [ $1 = '-h' -o $1 = '-?' -o $1 = '-help' ]; then
+	if [[ $# -eq 2 && "$2" != '-r' ]]; then
+		echo 'Parametro incorrecto'
+		echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
+		exit
+	fi
+
+	if [[ "$1" == "-h" || "$1" == "-?" || "$1" == "-help" ]]; then
 		getHelp
 		exit
 	fi
@@ -52,7 +60,12 @@ buscarDadoDirectorioArchivosTxt() {
 		directorioParametro="$1"
 	fi
 
-	varArcEsp=$(find "$directorioParametro" -maxdepth 1 -type f -perm -a+r -name "* *")
+	#Parametro -r
+	if [[ $# -eq 2 && $2 == '-r' ]]; then
+		varArcEsp=$(find "$directorioParametro" -type f -perm -a+r -name "* *")
+	else
+		varArcEsp=$(find "$directorioParametro" -maxdepth 1 -type f -perm -a+r -name "* *")
+	fi
 
 	IFS="
 	"
@@ -88,7 +101,8 @@ buscarDadoDirectorioArchivosTxt() {
 		archRenombrados=$((archRenombrados + 1))
 	done
 }
-validarCantidadParametros $@
+
+validarCantidadParametros "$@"
 archRenombrados=0
-buscarDadoDirectorioArchivosTxt $@
+buscarDadoDirectorioArchivosTxt "$@"
 echo "Archivos renombrados: " $archRenombrados

@@ -72,7 +72,7 @@ fi
 #                nombre del ejecutable, pero se diferencia en que devuelve los mismos en un array.
 #       3) "$$": PID del proceso.
 #       4) "$?": Estado del ultimo comando ejecutado. En caso correcto, sera 0, de lo contrario, 1.
-#       5) "$!": Numero de proecso del ultimo comando que esta en segundo plano.
+#       5) "$!": Numero de proceso del ultimo comando que esta en segundo plano.
 #
 # f) Comillas simples (''): El contenido se interpreta de forma literal (Por ejemplo, si tendríamos
 #    un echo '$USER', en vez de mostrar el nombre, simplemente imprimiría "$USER")
@@ -80,5 +80,5 @@ fi
 #    Comillas dobles (""): En este caso, se interpretan las referencias a las variables, mostrando
 #    el contenido de las mismas.
 #
-#    Comillas invertidas (``): Permite ejecutar un comando y asignarle su output a una variable.
+#    Comillas invertidas (``): Permite ejecutar un comando y posibilita la asignacion de su  output a una variable.
 #
