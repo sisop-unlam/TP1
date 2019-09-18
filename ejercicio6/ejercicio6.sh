@@ -101,3 +101,7 @@ arrOrdenado=($(sort -hrk 2,2 <<<"${registros[*]}" | head -10))
 for ((i = 0; i < ${#arrOrdenado[@]}; i++)); do
     echo "${arrOrdenado[$i]}"
 done
+
+if [[ $arrOrdenado == "" ]]; then
+    echo "No se encontraron resultados."
+fi
