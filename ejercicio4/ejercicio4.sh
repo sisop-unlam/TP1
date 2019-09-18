@@ -82,6 +82,8 @@ fi
 
 lineasSlash=0
 lineasSlashCodigo=0
+#lineasSlashInt=0
+lineasSlashIntS=0
 lineasTotales=0
 lineasSlashCodigoInternasMultilinea=0
 lineasComment=0
@@ -101,7 +103,6 @@ for i in $varArchivos; do
     END {printf SLASHCODE}
     ' "$i")
     lineasSlashCodigo=$((lineasSlashCodigo + aux_lineasSlashCodigo))
-
     #Lineas totales
     aux_lineasTotales=$(awk 'BEGIN { }
     NF > 0 { ++TOTAL }
@@ -112,6 +113,20 @@ for i in $varArchivos; do
     commentMultilinea=$(awk 'BEGIN { }
     /\/\*/,/\*\// {print}
     ' "$i")
+
+    #aux_lineasSlashInt=$(echo "$commentMultilinea" | awk 'BEGIN { }
+    #/\/\// {  if ($0 ~   /^[a-zA-Z0-9]+[ ]*(\/\/|\/\*)/ )  ++SLASHINT }
+    #END {printf SLASHINT}
+    #')
+
+    #lineasSlashInt=$((lineasSlashInt + aux_lineasSlashInt))
+
+    aux_lineasSlashIntS=$(echo "$commentMultilinea" | awk 'BEGIN { }
+    /\/\// {  if ($0 ~   /\/\// )  ++SLASHINT2 }
+    END {printf SLASHINT2}
+    ')
+
+    lineasSlashIntS=$((lineasSlashIntS + aux_lineasSlashIntS))
 
     #Aca cuento los comentarios // anidados en un multilinea
     aux_lineasSlashCodigoInternasMultilinea=$(echo "$commentMultilinea" | awk 'BEGIN { }
@@ -128,7 +143,7 @@ for i in $varArchivos; do
     lineasComment=$((lineasComment + aux_lineasComment))
 
 done
-
+lineasSlash=$((lineasSlash - lineasSlashIntS))
 lineasCodigo=$(($lineasTotales + $lineasSlashCodigo - $lineasComment - $lineasSlash + $lineasSlashCodigoInternasMultilinea))
 lineasComentarios=$(($lineasComment + $lineasSlash - $lineasSlashCodigoInternasMultilinea))
 echo "CANTIDAD DE ARCHIVOS ANALIZADOS: "$cantArchivosAnalizados
@@ -136,6 +151,9 @@ echo "LINEAS TOTALES: "$lineasTotales
 echo "LINEAS COMENTARIOS: "$lineasComentarios
 echo "    MULTILINEA: "$lineasComment
 echo "    LÍNEA ÚNICA: "$lineasSlash
+#echo "    LÍNEA UNICA EN MULTILINEA: "$lineasSlashInt
+#echo "    LÍNEA UNICA EN MULTILINEA: "$lineasSlashIntS
+
 echo "LINEAS CÓDIGO: "$lineasCodigo
 porcentajeCodigo=$(awk -vn=$lineasCodigo -vm=$lineasTotales 'BEGIN{if(m==0)m=1;print(n/m)*100}')
 porcentajeComentarios=$(echo '100-'$porcentajeCodigo | bc -l)
