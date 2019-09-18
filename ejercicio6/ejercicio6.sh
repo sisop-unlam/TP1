@@ -78,13 +78,13 @@ for f in $directorios; do
             #Si no tengo archivos, me devolveria 4KB, porque tengo a . y ..
             #Pero la cuenta de archivos sera 0, por lo que no me interesan
             if [ $cantidadArchivos -ne 0 ]; then
-                tamanyoActual=$(du -sh "$f" | cut -f1)
-
+                tamanyoActual=$(du -sh "$f" | cut -f1 | tr ',' '.')
+                # echo "$tamanyoActual"
                 #Reemplazo el /home/ por la virgulilla
                 nombreAbreviado=$(echo "$f" | sed "s|^$HOME|~|")
 
                 #Agrego al array mi cadena con informacion
-                registros+=("$nombreAbreviado"";""$tamanyoActual"";"$cantidadArchivos" "arch.)
+                registros+=("$nombreAbreviado"",""$tamanyoActual"","$cantidadArchivos" "arch.)
             fi
         fi
     fi
@@ -108,7 +108,7 @@ arrVar=$(split '\n' "${registros[@]}")
 arrOrdenado=($(sort -hrk 2 <<<"${arrVar[@]}" | head -10))
 IFS="
 "
-arrOrdenado2=($(echo "${arrVar[*]}" | sort -t ';' -hrk 2,2 | head -10))
+arrOrdenado2=($(echo "${arrVar[*]}" | sort -t ',' -hrk 2,2 | head -10))
 
 #Finalmente, muestra el resultado
 for ((i = 0; i < ${#arrOrdenado2[@]}; i++)); do
