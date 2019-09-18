@@ -32,7 +32,7 @@ getHelp() {
 }
 
 validarCantidadParametros() {
-	if [[ $# -lt 1 || $# -gt 2 ]]; then
+	if [[ $# -lt 0 || $# -gt 2 ]]; then
 		echo 'La cantidad de parámetros no es correcta'
 		echo 'Utilizar la ayuda con -h/-?/-help para mayor informacion'
 		exit
@@ -49,9 +49,11 @@ validarCantidadParametros() {
 		exit
 	fi
 
-	if ! [ -d "$1" ]; then
-		echo "Ingrese un directorio válido."
-		exit
+	if [[ $# == 1 ]]; then
+		if ! [ -d "$1" ]; then
+			echo "Ingrese un directorio válido."
+			exit
+		fi
 	fi
 }
 
