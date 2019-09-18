@@ -29,6 +29,7 @@ start() {
    #Para no mostrar los path relativos
    cd "$3"
    CARPETA_DESTINO="$(pwd)"
+   cd "$CARPETA_SCRIPT"
    cd "$2"
    CARPETA_BACKUP="$(pwd)"
 
