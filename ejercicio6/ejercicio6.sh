@@ -34,7 +34,7 @@ verificar_parametros() {
         exit -1
     fi
 
-    if [ $1 = '-h' -o $1 = '-?' -o $1 = '-help' ]; then
+    if [ "$1" = '-h' -o "$1" = '-?' -o "$1" = '-help' ]; then
         get_help
         exit 1
     fi
@@ -45,7 +45,7 @@ verificar_parametros() {
     fi
 }
 
-verificar_parametros $@
+verificar_parametros "$@"
 
 dir="$1"
 
@@ -84,22 +84,35 @@ for f in $directorios; do
                 nombreAbreviado=$(echo "$f" | sed "s|^$HOME|~|")
 
                 #Agrego al array mi cadena con informacion
-                registros+=($nombreAbreviado" "$tamanyoActual" "$cantidadArchivos" "arch.)
+                registros+=("$nombreAbreviado"";""$tamanyoActual"";"$cantidadArchivos" "arch.)
             fi
         fi
     fi
 done
+split() {
+    (($# < 2)) && return 1 # At least 2 arguments required
+    local -- delim="$1" str
+    shift
+    printf -v str "%s$delim" "$@"
+    echo "${str:0:-${#delim}}"
+}
 
+arrVar=$(split '\n' "${registros[@]}")
 #Ordeno el array por la segunda columna, usando las distintas flags
 #La flag h, es por human, para que lea correctamente los tamaños
 #La flag r, es por reverse
 #La flag k, es por la columna que ordena
 #Luego, obtiene los primeros 10
-arrOrdenado=($(sort -hrk 2,2 <<<"${registros[*]}" | head -10))
+#echo "$arrVar"
+#echo "$arrVar"
+arrOrdenado=($(sort -hrk 2 <<<"${arrVar[@]}" | head -10))
+IFS="
+"
+arrOrdenado2=($(echo "${arrVar[*]}" | sort -t ';' -hrk 2,2 | head -10))
 
 #Finalmente, muestra el resultado
-for ((i = 0; i < ${#arrOrdenado[@]}; i++)); do
-    echo "${arrOrdenado[$i]}"
+for ((i = 0; i < ${#arrOrdenado2[@]}; i++)); do
+    echo "${arrOrdenado2[$i]}"
 done
 
 if [[ $arrOrdenado == "" ]]; then
